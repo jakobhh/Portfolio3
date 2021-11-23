@@ -1,5 +1,7 @@
 package com.company;
 
+// Code by: August Sivkjær Ohm-Hieronymussen & Jakob Høfsten
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

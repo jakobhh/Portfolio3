@@ -8,10 +8,10 @@ import java.sql.*;
 public class Main extends Application {
     public void start(Stage primaryStage)  {
         String url="jdbc:sqlite:C:/Users/Jakob/Desktop/SQL_JDB/testdatabase";
-       TrainView view=new TrainView();
-       TrainModel model=new TrainModel(url);
+       StudentView view=new StudentView();
+       StudentModel model=new StudentModel(url);
        try {
-            new TrainController(view, model);
+            new StudentController(view, model);
        }    catch (SQLException e){
            e.printStackTrace();
            System.out.println(e.getMessage());

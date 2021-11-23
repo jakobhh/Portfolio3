@@ -7,17 +7,17 @@ import javafx.scene.control.TextArea;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class TrainController {
-    TrainView view;
-    TrainModel model;
+public class StudentController {
+    StudentView view;
+    StudentModel model;
 
-    public TrainController(TrainView v, TrainModel m) throws SQLException {
+    public StudentController(StudentView v, StudentModel m) throws SQLException {
         this.view=v;
         this.model=m;
         this.view.ExitBtn.setOnAction(e-> Platform.exit());
-        this.model.connectToTrainData();
+        this.model.connectToStudentData();
         this.model.CreateStatement();
-        this.view.stations=getStations();
+        this.view.students=getStudents();
         this.view.courses=getCourses();
         this.view.FindStudentGrade.setOnAction(e->HandlerPrintStudentGrades(view.StudentCB.getValue(), view.textfield));
         this.view.FindCourseGrade.setOnAction(e->HandlerPrintCourseGrades(view.CourseCB.getValue(), view.textfield));
@@ -40,7 +40,6 @@ public class TrainController {
         }
 
     }
-
     public void HandlerPrintStudentGPA(String sNameGPA, TextArea txtArea){
         txtArea.clear();
         txtArea.appendText(sNameGPA + ":\n");
@@ -67,7 +66,6 @@ public class TrainController {
             System.out.println(e.getMessage());
         }
     }
-
     public void HandlerPrintCourseGrades(String cName, TextArea txtArea){
         txtArea.clear();
         txtArea.appendText(cName + ":\n");
@@ -81,10 +79,10 @@ public class TrainController {
         }
     }
 
-    public ObservableList<String> getStations() throws SQLException {
-        ArrayList<String> stations= model.SQLQueryStationNames();
-        ObservableList<String> stationnames= FXCollections.observableArrayList(stations);
-        return stationnames;
+    public ObservableList<String> getStudents() throws SQLException {
+        ArrayList<String> students= model.SQLQueryStudentNames();
+        ObservableList<String> studentnames= FXCollections.observableArrayList(students);
+        return studentnames;
     }
     public ObservableList<String> getCourses() throws SQLException {
         ArrayList<String> courses= model.SQLQueryCourseNames();

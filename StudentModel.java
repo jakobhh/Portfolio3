@@ -2,18 +2,18 @@ package com.company;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class TrainModel {
+public class StudentModel {
     Connection conn=null;
     String url=null;
     Statement stmt=null;
     PreparedStatement pstmt=null;
     ResultSet rs=null;
 
-    TrainModel(String url){
+    StudentModel(String url){
         this.url=url;
     }
 
-    public void connectToTrainData() throws SQLException {
+    public void connectToStudentData() throws SQLException {
         conn= DriverManager.getConnection(url);
     }
 
@@ -21,16 +21,16 @@ public class TrainModel {
         this.stmt=conn.createStatement();
     }
 
-    public ArrayList<String> SQLQueryStationNames() throws SQLException{
-        ArrayList<String> stations=new ArrayList<>();
+    public ArrayList<String> SQLQueryStudentNames() throws SQLException{
+        ArrayList<String> students=new ArrayList<>();
         String sql = "Select studentName from students;";
         rs=stmt.executeQuery(sql);
         while(rs!=null && rs.next()){
             String name=rs.getString(1);
             System.out.println(name);
-            stations.add(name);
+            students.add(name);
         }
-        return stations;
+        return students;
     }
     public ArrayList<String> SQLQueryCourseNames() throws SQLException{
         ArrayList<String> courses=new ArrayList<>();

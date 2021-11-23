@@ -8,10 +8,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 
-public class TrainView {
+public class StudentView {
     GridPane startview;
-    Label StartStationLbl;
-    Label EndStationLbl;
+    Label StudentLbl;
+    Label CourseLbl;
     Button ExitBtn;
     Button FindStudentGrade;
     Button FindCourseGrade;
@@ -21,10 +21,10 @@ public class TrainView {
     ComboBox<String> CourseCB;
     TextArea textfield;
 
-    ObservableList<String> stations;
+    ObservableList<String> students;
     ObservableList<String> courses;
 
-    public TrainView(){
+    public StudentView(){
         startview=new GridPane();
         CreateView();
     }
@@ -35,10 +35,10 @@ public class TrainView {
         startview.setHgap(5);
         startview.setVgap(5);
 
-        StartStationLbl=new Label("Select start station:");
-        startview.add(StartStationLbl,1,1);
-        EndStationLbl= new Label("Select destination:");
-        startview.add(EndStationLbl,1,2);
+        StudentLbl =new Label("Students:");
+        startview.add(StudentLbl,1,1);
+        CourseLbl = new Label("Courses:");
+        startview.add(CourseLbl,1,2);
 
         ExitBtn=new Button("Exit");
         FindStudentGrade=new Button("Student Grades");
@@ -66,7 +66,7 @@ public class TrainView {
 
     }
     public void configure(){
-        StudentCB.setItems(stations);
+        StudentCB.setItems(students);
         StudentCB.getSelectionModel().selectFirst();
 
         CourseCB.setItems(courses);

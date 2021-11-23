@@ -1,0 +1,105 @@
+DROP TABLE IF EXISTS Students;
+CREATE TABLE Students (
+                          studentID Integer PRIMARY KEY not null,
+                          studentName Varchar not null,
+                          studentCity Varchar
+);
+
+DROP TABLE IF EXISTS Teachers;
+CREATE TABLE Teachers (
+                          teacherID Integer PRIMARY KEY not null,
+                          teacherName Varchar not null
+);
+
+DROP TABLE IF EXISTS Courses;
+CREATE TABLE Courses (
+                         courseID integer PRIMARY KEY not null,
+                         courseName Varchar not null,
+                         courseSemester Varchar not null,
+                         teacherID Integer not null,
+                         FOREIGN KEY (teacherID) REFERENCES Teachers
+);
+DROP TABLE IF EXISTS StudentCourse;
+CREATE TABLE StudentCourse (
+                               studentID integer not null,
+                               courseID integer not null,
+                               grade integer,
+                               FOREIGN KEY (studentID) REFERENCES Students,
+                               FOREIGN KEY (courseID) REFERENCES Courses
+);
+DROP TABLE IF EXISTS Address;
+CREATE TABLE Address (
+                         studentCity Varchar PRIMARY KEY,
+                         zip integer,
+                         country Varchar,
+                         FOREIGN KEY (studentCity) REFERENCES Students
+);
+
+INSERT INTO Students VALUES (1, 'Aisha Lincoln', 'Nykøbing F');
+INSERT INTO Students VALUES (2, 'Anya Nielsen', 'Nykøbing F');
+INSERT INTO Students VALUES (3, 'Alfred Jensen', 'Karlskrona');
+INSERT INTO Students VALUES (4, 'Berta Bertelsen', 'Billund');
+INSERT INTO Students VALUES (5, 'Albert Antonsen', 'Sorø');
+INSERT INTO Students VALUES (6, 'Eske Eriksen', 'Eskildstrup');
+INSERT INTO Students VALUES (7, 'Olaf Olesen', 'Odense');
+INSERT INTO Students VALUES (8, 'Salma Simonsen', 'Stockholm');
+INSERT INTO Students VALUES (9, 'Theis Thomassen', 'Tølløse');
+INSERT INTO Students VALUES (10, 'Janet Jensen', 'Jyllinge');
+INSERT INTO Students VALUES (11, 'Egon Damdrup', 'Roskilde');
+
+INSERT INTO Teachers VALUES (1, 'Line Reinhardt');
+INSERT INTO Teachers VALUES (2, 'Bo Holst');
+
+
+insert into Courses values (1, 'Software Development 20', 'E2020', 1);
+insert into Courses values (2, 'Software Development 21', 'E2021', 1);
+insert into Courses values (3, 'Essential Computing 1', 'E2020', 2);
+
+INSERT INTO StudentCourse VALUES (1, 1, 12);
+INSERT INTO StudentCourse VALUES (1, 3, 10);
+INSERT INTO StudentCourse VALUES (2, 2, null);
+INSERT INTO StudentCourse VALUES (2, 3, 12);
+INSERT INTO StudentCourse VALUES (3, 1, 7);
+INSERT INTO StudentCourse VALUES (3, 3, 10);
+INSERT INTO StudentCourse VALUES (4, 2, null);
+INSERT INTO StudentCourse VALUES (4, 3, 2);
+INSERT INTO StudentCourse VALUES (5, 1, 10);
+INSERT INTO StudentCourse VALUES (5, 3, 7);
+INSERT INTO StudentCourse VALUES (6, 2, null);
+INSERT INTO StudentCourse VALUES (6, 3, 10);
+INSERT INTO StudentCourse VALUES (7, 1, 4);
+INSERT INTO StudentCourse VALUES (7, 3, 12);
+INSERT INTO StudentCourse VALUES (8, 2, null);
+INSERT INTO StudentCourse VALUES (8, 3, 12);
+INSERT INTO StudentCourse VALUES (9, 1, 12);
+INSERT INTO StudentCourse VALUES (9, 3, 12);
+INSERT INTO StudentCourse VALUES (10, 2, null);
+INSERT INTO StudentCourse VALUES (10 ,3 ,7);
+INSERT INTO StudentCourse VALUES (11 ,2 ,null);
+INSERT INTO StudentCourse VALUES (11 ,3 ,2);
+
+insert into Address values ('Nykøbing F', 4800, 'Denmark');
+insert into Address values ('Karlskrona', null, 'Sweden');
+insert into Address values ('Billund', 7190, 'Denmark');
+insert into Address values ('Sorø', 4180, 'Denmark');
+insert into Address values ('Eskildstrup', 4863, 'Denmark');
+insert into Address values ('Odense', 5000, 'Denmark');
+insert into Address values ('Stockholm', null, 'Sweden');
+insert into Address values ('Tølløse', 4340, 'Denmark');
+insert into Address values ('Jyllinge', 4040, 'Denmark');
+insert into Address values ('Roskilde', 4000, 'Denmark');
+
+-- Student GPA calculated
+SELECT S.studentName, AVG(SC.grade) as sGPA
+FROM StudentCourse as SC
+NATURAL JOIN Students as S
+GROUP BY S.studentName;
+
+-- Course GPA calculated
+SELECT C.courseName, AVG(SC.grade) as cGPA
+FROM StudentCourse as SC
+NATURAL JOIN Courses as C
+GROUP BY C.courseName;
+
+
+
